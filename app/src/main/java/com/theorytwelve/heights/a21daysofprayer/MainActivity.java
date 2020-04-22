@@ -2,22 +2,19 @@ package com.theorytwelve.heights.a21daysofprayer;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.theorytwelve.heights.a21daysofprayer.utilities.JsonUtils;
+import com.theorytwelve.heights.a21daysofprayer.utilities.PrayerDay;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 
 public class MainActivity extends AppCompatActivity {
 
-    TextView tvJsonDisplay;
-    ImageView ivImageDisplay;
+    public TextView tvJsonDisplay;
+    public ImageView ivImageDisplay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,29 +23,33 @@ public class MainActivity extends AppCompatActivity {
 
         tvJsonDisplay = (TextView) findViewById(R.id.tv_show_json);
         ivImageDisplay = (ImageView) findViewById(R.id.iv_show_image);
-        InputStream inputStream = getResources().openRawResource(R.raw.prayerdays);
-        JsonUtils jsonUtils = new JsonUtils();
-        String [][] dayDataArray = jsonUtils.getDayArrayData(inputStream);
-        if(dayDataArray == null){
-            tvJsonDisplay.setText("Data Array Null");
-        } else {
-            String[] dayText = getDay(dayDataArray,6);
-            tvJsonDisplay.setText(dayText[0]);
-            for(int i = 1; i < dayText.length-1; i++) {
-                tvJsonDisplay.append("\n" + dayText[i]);
-            }
-            ivImageDisplay.setImageResource(getResources().getIdentifier(dayText[dayText.length-1],"drawable",getPackageName()));
-        }
+
+        displayPrayerData(3);
     }
 
-    private String[] getDay(String[][] dayArray, int dayNum) {
-        String[] result = new String[dayArray[dayNum-1].length];
+    public void displayPrayerData(int day){
+        JsonUtils jsonUtils = new JsonUtils(this);
+        PrayerDay[] prayerDays = jsonUtils.getPrayerData("prayerdays");
 
-        for(int i = 0; i < result.length; i++){
-            result[i] = dayArray[dayNum-1][i];
+        // this will all change once I implement the rest of the app, with recycler view and other build outs.
+        // below only really used right now to make sure JsonUtils is parsing correctly and I can display data from file.
+        if(prayerDays == null){
+            tvJsonDisplay.setText("prayerDays: Null Object");
+        } else {
+            PrayerDay dayOne = prayerDays[day-1];
+            if (prayerDays.length < day) {
+                tvJsonDisplay.setText("Day not available");
+            } else {
+                tvJsonDisplay.setText("Title: " + dayOne.getDayTitle());
+
+                tvJsonDisplay.append("\nFocus: " + dayOne.getDayFocus());
+                tvJsonDisplay.append("\nVerse: " + dayOne.getDayVerse());
+                tvJsonDisplay.append("\nDescription: " + dayOne.getDayDescription());
+                tvJsonDisplay.append("\n\nPrayer:" + dayOne.getDayPrayer());
+
+                ivImageDisplay.setImageResource(getResources().getIdentifier(dayOne.getDayImageRef(), "drawable", getPackageName()));
+            }
         }
-
-        return result;
     }
 
 }

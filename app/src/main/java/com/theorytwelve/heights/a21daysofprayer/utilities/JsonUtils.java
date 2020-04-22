@@ -1,5 +1,6 @@
 package com.theorytwelve.heights.a21daysofprayer.utilities;
 
+import android.content.Context;
 import android.util.Log;
 
 import org.json.JSONArray;
@@ -10,52 +11,52 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+import com.theorytwelve.heights.a21daysofprayer.R;
+import com.theorytwelve.heights.a21daysofprayer.utilities.PrayerDay;
+
 public class JsonUtils {
     private static final String TAG = JsonUtils.class.getSimpleName();
-    private int dayNum;
-    private String dayTitle;
-    private String dayFocus;
-    private String dayVerse;
-    private String dayDescription;
-    private String dayPrayer;
-    private String dayImageRef;
+    private Context mContext;
+    //private int dayNum;
 
-    public String[][] getDayArrayData(InputStream inputStream){
-        String jsonData = readJsonFile(inputStream);
+    public JsonUtils(Context context) {mContext = context;}     // this is to access the "res" folder
+
+    public PrayerDay[] getPrayerData(String jsonFileName){
+        PrayerDay[] prayerDays = null;
 
         try {
+            String jsonData = readJsonFile(jsonFileName);
             JSONArray jsonArray = new JSONArray(jsonData);
             String[] fieldsArray = {"title","focus","verse","description","prayer","image"};
-            String[][] dataArray = new String[jsonArray.length()][fieldsArray.length];
+
+            prayerDays = new PrayerDay[jsonArray.length()];
 
             for(int i=0; i<jsonArray.length(); i++){
                 JSONObject jObject = jsonArray.getJSONObject(i);
                 Log.d(TAG, "getDayArrayData: " + jsonArray.length());
 
-                this.dayTitle = jObject.getString(fieldsArray[0]);
-                this.dayFocus = jObject.getString(fieldsArray[1]);
-                this.dayVerse = jObject.getString(fieldsArray[2]);
-                this.dayDescription = jObject.getString(fieldsArray[3]);
-                this.dayPrayer = jObject.getString(fieldsArray[4]);
-                this.dayImageRef = "a21_dop_" + Integer.toString(i+1);
+                //todone update these to be set with new PrayerDay objects
+                PrayerDay prayerDay = new PrayerDay(
+                        jObject.getString(fieldsArray[0]), // title
+                        jObject.getString(fieldsArray[1]), // focus
+                        jObject.getString(fieldsArray[2]), // verse
+                        jObject.getString(fieldsArray[3]), // descr
+                        jObject.getString(fieldsArray[4]), // prayer
+                        "a21_dop_" + Integer.toString(i+1)); //image
 
-                dataArray[i][0] = this.dayTitle;
-                dataArray[i][1] = this.dayFocus;
-                dataArray[i][2] = this.dayVerse;
-                dataArray[i][3] = this.dayDescription;
-                dataArray[i][4] = this.dayPrayer;
-                dataArray[i][5] = this.dayImageRef;
+                prayerDays[i] = prayerDay;
             }
+            return prayerDays;
 
-            return dataArray;
         } catch (JSONException e) {
             Log.d(TAG, "getDayArray: " + e);
-            String[][] s=null;
-            return s;
+            return prayerDays;
         }
     }
 
-    private String readJsonFile(InputStream inputStream) {
+    private String readJsonFile(String jsonFileName) {
+        int resourceID = mContext.getResources().getIdentifier(jsonFileName,"raw",mContext.getPackageName());
+        InputStream inputStream = mContext.getResources().openRawResource(resourceID);
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 
         byte buf[] = new byte[1024];
