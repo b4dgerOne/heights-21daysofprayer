@@ -13,8 +13,8 @@ import java.io.InputStream;
 
 public class MainActivity extends AppCompatActivity {
 
-    public TextView tvJsonDisplay;
-    public ImageView ivImageDisplay;
+    private TextView tvJsonDisplay;
+    private ImageView ivImageDisplay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
