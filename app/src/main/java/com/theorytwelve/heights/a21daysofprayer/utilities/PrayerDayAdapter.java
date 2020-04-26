@@ -14,9 +14,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class PrayerDayAdapter extends RecyclerView.Adapter<PrayerDayAdapter.CardViewHolder> {
     private static final String TAG = PrayerDayAdapter.class.getSimpleName();
-    private final String TV_TITLE_ID = "tv_day_title_card";
-    private final String TV_FOCUS_ID = "tv_day_focus_card";
-    private final String IV_BANNER_ID = "iv_day_banner_card";
+//    private final String TV_TITLE_ID = "tv_day_title_card";
+//    private final String TV_FOCUS_ID = "tv_day_focus_card";
+//    private final String IV_BANNER_ID = "iv_day_banner_card";
     private Context mContext;
     private int numberOfDays;
     private PrayerDay[] mPrayerDays;
@@ -57,12 +57,6 @@ public class PrayerDayAdapter extends RecyclerView.Adapter<PrayerDayAdapter.Card
         public CardViewHolder(@NonNull View itemView) {
             super(itemView);
 
-//            int bannerID = mContext.getResources().getIdentifier(IV_BANNER_ID,"layout",mContext.getPackageName());
-//            int titleID = mContext.getResources().getIdentifier(TV_TITLE_ID,"layout",mContext.getPackageName());
-//            int focusID = mContext.getResources().getIdentifier(TV_FOCUS_ID,"layout",mContext.getPackageName());
-//            cardBannerImage = (ImageView) itemView.findViewById(bannerID);
-//            cardTitleText = (TextView) itemView.findViewById(titleID);
-//            cardFocusText = (TextView) itemView.findViewById(focusID);
             cardTitleText = (TextView) itemView.findViewById(R.id.tv_day_title_card);
             cardFocusText = (TextView) itemView.findViewById(R.id.tv_day_focus_card);
             cardBannerImage = (ImageView) itemView.findViewById(R.id.iv_day_banner_card);
@@ -71,7 +65,7 @@ public class PrayerDayAdapter extends RecyclerView.Adapter<PrayerDayAdapter.Card
         void bind(PrayerDay prayerDay) {
             int imageID = mContext.getResources().getIdentifier(prayerDay.getDayImageRef(),"drawable",mContext.getPackageName());
             cardBannerImage.setImageResource(imageID);
-            cardTitleText.setText(prayerDay.getDayTitle());
+            cardTitleText.setText(prayerDay.getDayTitle().toUpperCase());
             cardFocusText.setText(prayerDay.getDayFocus());
         }
     }
