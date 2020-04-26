@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class PrayerDayAdapter extends RecyclerView.Adapter<PrayerDayAdapter.CardViewHolder> {
     private static final String TAG = PrayerDayAdapter.class.getSimpleName();
+    private final PrayerDayClickListener mPrayerDayClickListener;
 //    private final String TV_TITLE_ID = "tv_day_title_card";
 //    private final String TV_FOCUS_ID = "tv_day_focus_card";
 //    private final String IV_BANNER_ID = "iv_day_banner_card";
@@ -21,8 +22,13 @@ public class PrayerDayAdapter extends RecyclerView.Adapter<PrayerDayAdapter.Card
     private int numberOfDays;
     private PrayerDay[] mPrayerDays;
 
-    public PrayerDayAdapter(Context context, PrayerDay[] prayerDays){
+    public interface PrayerDayClickListener {
+        void onPrayerDayClick(PrayerDay prayerDay);
+    }
+
+    public PrayerDayAdapter(Context context, PrayerDay[] prayerDays, PrayerDayClickListener listener){
         mContext = context;
+        mPrayerDayClickListener = listener;
         mPrayerDays = prayerDays;
         numberOfDays = prayerDays.length;
     }
@@ -48,7 +54,7 @@ public class PrayerDayAdapter extends RecyclerView.Adapter<PrayerDayAdapter.Card
         return numberOfDays;
     }
 
-    class CardViewHolder extends RecyclerView.ViewHolder {
+    class CardViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         ImageView cardBannerImage;
         TextView cardTitleText;
@@ -56,6 +62,7 @@ public class PrayerDayAdapter extends RecyclerView.Adapter<PrayerDayAdapter.Card
 
         public CardViewHolder(@NonNull View itemView) {
             super(itemView);
+            itemView.setOnClickListener(this);
 
             cardTitleText = (TextView) itemView.findViewById(R.id.tv_day_title_card);
             cardFocusText = (TextView) itemView.findViewById(R.id.tv_day_focus_card);
@@ -67,6 +74,12 @@ public class PrayerDayAdapter extends RecyclerView.Adapter<PrayerDayAdapter.Card
             cardBannerImage.setImageResource(imageID);
             cardTitleText.setText(prayerDay.getDayTitle().toUpperCase());
             cardFocusText.setText(prayerDay.getDayFocus());
+        }
+
+        @Override
+        public void onClick(View view) {
+            int clickedDay = getAdapterPosition();
+            mPrayerDayClickListener.onPrayerDayClick(mPrayerDays[clickedDay]);
         }
     }
 }
