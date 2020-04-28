@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -17,8 +19,9 @@ import java.io.InputStream;
 
 public class MainActivity extends AppCompatActivity implements PrayerDayAdapter.PrayerDayClickListener {
 
-    private TextView tvJsonDisplay;
-    private ImageView ivImageDisplay;
+    private TextView tvVerseDisplay;
+    private TextView tvDescriptionDisplay;
+    private TextView tvPrayerDisplay;
     private PrayerDayAdapter mPrayerAdapter;
     private RecyclerView mPrayerDaysList;
     private Toast mToast;
@@ -38,45 +41,31 @@ public class MainActivity extends AppCompatActivity implements PrayerDayAdapter.
         mPrayerAdapter = new PrayerDayAdapter(this,prayerDays,this);
 
         mPrayerDaysList.setAdapter(mPrayerAdapter);
-
-//        tvJsonDisplay = (TextView) findViewById(R.id.tv_show_json);
-//        ivImageDisplay = (ImageView) findViewById(R.id.iv_show_image);
-//        displayPrayerData(3);
-    }
-
-    public void displayPrayerData(int day){
-        JsonUtils jsonUtils = new JsonUtils(this);
-        PrayerDay[] prayerDays = jsonUtils.getPrayerData("prayerdays");
-
-        // this will all change once I implement the rest of the app, with recycler view and other build outs.
-        // below only really used right now to make sure JsonUtils is parsing correctly and I can display data from file.
-//        if(prayerDays == null){
-//            tvJsonDisplay.setText("prayerDays: Null Object");
-//        } else {
-//            PrayerDay dayOne = prayerDays[day-1];
-//            if (prayerDays.length < day) {
-//                tvJsonDisplay.setText("Day not available");
-//            } else {
-//                tvJsonDisplay.setText("Title: " + dayOne.getDayTitle());
-//
-//                tvJsonDisplay.append("\nFocus: " + dayOne.getDayFocus());
-//                tvJsonDisplay.append("\nVerse: " + dayOne.getDayVerse());
-//                tvJsonDisplay.append("\nDescription: " + dayOne.getDayDescription());
-//                tvJsonDisplay.append("\n\nPrayer:" + dayOne.getDayPrayer());
-//
-//                ivImageDisplay.setImageResource(getResources().getIdentifier(dayOne.getDayImageRef(), "drawable", getPackageName()));
-//            }
-//        }
     }
 
     @Override
     public void onPrayerDayClick(PrayerDay prayerDay) {
-        if(mToast != null) {
-            mToast.cancel();
-        }
+//        if(mToast != null) {
+//            mToast.cancel();
+//        }
+//        String toastText = "Verse: " + prayerDay.getDayVerse();
+//        mToast = Toast.makeText(this,toastText,Toast.LENGTH_SHORT);
+//        mToast.show();
 
-        String toastText = "Verse: " + prayerDay.getDayVerse();
-        mToast = Toast.makeText(this,toastText,Toast.LENGTH_LONG);
-        mToast.show();
+        String pdTitle = prayerDay.getDayTitle();
+        String pdVerse = prayerDay.getDayVerse();
+        String pdFocus = prayerDay.getDayFocus();
+        String pdDescr = prayerDay.getDayDescription();
+        String pdImage = prayerDay.getDayImageRef();
+        String pdPrayer = prayerDay.getDayPrayer();
+
+        Intent intent = new Intent(MainActivity.this,PrayerDayDetailActivity.class);
+        intent.putExtra("title",pdTitle)
+                .putExtra("verse",pdVerse)
+                .putExtra("focus",pdFocus)
+                .putExtra("prayer",pdPrayer)
+                .putExtra("image",pdImage)
+                .putExtra("descr",pdDescr);
+        startActivity(intent);
     }
 }

@@ -33,7 +33,7 @@ public class JsonUtils {
 
             for(int i=0; i<jsonArray.length(); i++){
                 JSONObject jObject = jsonArray.getJSONObject(i);
-                Log.d(TAG, "getDayArrayData: " + jsonArray.length());
+                //Log.d(TAG, "getDayArrayData: " + jsonArray.length());
 
                 //todone update these to be set with new PrayerDay objects
                 PrayerDay prayerDay = new PrayerDay(

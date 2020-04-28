@@ -1,3 +1,7 @@
 <resources>
-    <string name="app_name">21 Days Of Prayer</string>
+    <string name="app_name">Heights Prayer</string>
+    <string name="detail_prayer_lead">Prayer for Today: </string>
+    <string name="detail_focus_lead">Today\'s Focus: </string>
+    <string name="detail_verse_lead">Verse: </string>
+    <string name="logo_description">Heights Church Logo</string>
 </resources>

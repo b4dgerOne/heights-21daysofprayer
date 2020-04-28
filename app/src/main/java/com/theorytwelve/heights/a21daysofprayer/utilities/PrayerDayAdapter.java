@@ -72,7 +72,7 @@ public class PrayerDayAdapter extends RecyclerView.Adapter<PrayerDayAdapter.Card
         void bind(PrayerDay prayerDay) {
             int imageID = mContext.getResources().getIdentifier(prayerDay.getDayImageRef(),"drawable",mContext.getPackageName());
             cardBannerImage.setImageResource(imageID);
-            cardTitleText.setText(prayerDay.getDayTitle().toUpperCase());
+            cardTitleText.setText(prayerDay.getDayTitle());
             cardFocusText.setText(prayerDay.getDayFocus());
         }
 
