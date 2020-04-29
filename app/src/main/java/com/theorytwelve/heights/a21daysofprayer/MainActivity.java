@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity implements PrayerDayAdapter.
         }
 
         if(startDay == 99){
-            startDay = 1;
+            startDay = prayerDays.length;
         }
 
         return startDay-1;
