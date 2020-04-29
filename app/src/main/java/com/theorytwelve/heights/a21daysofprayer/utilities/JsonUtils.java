@@ -27,7 +27,7 @@ public class JsonUtils {
         try {
             String jsonData = readJsonFile(jsonFileName);
             JSONArray jsonArray = new JSONArray(jsonData);
-            String[] fieldsArray = {"title","focus","verse","description","prayer","image"};
+            String[] fieldsArray = {"title","focus","verse","description","prayer","image","date"};
 
             prayerDays = new PrayerDay[jsonArray.length()];
 
@@ -35,14 +35,14 @@ public class JsonUtils {
                 JSONObject jObject = jsonArray.getJSONObject(i);
                 //Log.d(TAG, "getDayArrayData: " + jsonArray.length());
 
-                //todone update these to be set with new PrayerDay objects
                 PrayerDay prayerDay = new PrayerDay(
                         jObject.getString(fieldsArray[0]), // title
                         jObject.getString(fieldsArray[1]), // focus
                         jObject.getString(fieldsArray[2]), // verse
                         jObject.getString(fieldsArray[3]), // descr
                         jObject.getString(fieldsArray[4]), // prayer
-                        "a21_dop_" + Integer.toString(i+1)); //image
+                        "a21_dop_" + Integer.toString(i+1), //image
+                        jObject.getString(fieldsArray[6])); // date
 
                 prayerDays[i] = prayerDay;
             }

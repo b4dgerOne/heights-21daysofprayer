@@ -4,40 +4,41 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
+
 
 import com.theorytwelve.heights.a21daysofprayer.utilities.JsonUtils;
 import com.theorytwelve.heights.a21daysofprayer.utilities.PrayerDay;
 import com.theorytwelve.heights.a21daysofprayer.utilities.PrayerDayAdapter;
 
-import java.io.InputStream;
+
+import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity implements PrayerDayAdapter.PrayerDayClickListener {
 
-    private TextView tvVerseDisplay;
-    private TextView tvDescriptionDisplay;
-    private TextView tvPrayerDisplay;
+    private static final String TAG = MainActivity.class.getSimpleName();
     private PrayerDayAdapter mPrayerAdapter;
     private RecyclerView mPrayerDaysList;
-    private Toast mToast;
+    private TextView mTimeDemo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // get the data from JSON file
+        JsonUtils jsonUtils = new JsonUtils(this);
+        PrayerDay[] prayerDays = jsonUtils.getPrayerData("prayerdays");
+
+        // set up the RecyclerView
         mPrayerDaysList = (RecyclerView) findViewById(R.id.rv_day_cards);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this, 0,false);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this, RecyclerView.HORIZONTAL,false);
+        layoutManager.scrollToPosition(getDayStartingPosition(prayerDays));
         mPrayerDaysList.setLayoutManager(layoutManager);
         mPrayerDaysList.setHasFixedSize(true);
 
-        JsonUtils jsonUtils = new JsonUtils(this);
-        PrayerDay[] prayerDays = jsonUtils.getPrayerData("prayerdays");
         mPrayerAdapter = new PrayerDayAdapter(this,prayerDays,this);
 
         mPrayerDaysList.setAdapter(mPrayerAdapter);
@@ -45,27 +46,37 @@ public class MainActivity extends AppCompatActivity implements PrayerDayAdapter.
 
     @Override
     public void onPrayerDayClick(PrayerDay prayerDay) {
-//        if(mToast != null) {
-//            mToast.cancel();
-//        }
-//        String toastText = "Verse: " + prayerDay.getDayVerse();
-//        mToast = Toast.makeText(this,toastText,Toast.LENGTH_SHORT);
-//        mToast.show();
-
-        String pdTitle = prayerDay.getDayTitle();
-        String pdVerse = prayerDay.getDayVerse();
-        String pdFocus = prayerDay.getDayFocus();
-        String pdDescr = prayerDay.getDayDescription();
-        String pdImage = prayerDay.getDayImageRef();
-        String pdPrayer = prayerDay.getDayPrayer();
 
         Intent intent = new Intent(MainActivity.this,PrayerDayDetailActivity.class);
-        intent.putExtra("title",pdTitle)
-                .putExtra("verse",pdVerse)
-                .putExtra("focus",pdFocus)
-                .putExtra("prayer",pdPrayer)
-                .putExtra("image",pdImage)
-                .putExtra("descr",pdDescr);
+        intent.putExtra("title",prayerDay.getDayTitle())
+                .putExtra("verse",prayerDay.getDayVerse())
+                .putExtra("focus",prayerDay.getDayFocus())
+                .putExtra("prayer",prayerDay.getDayPrayer())
+                .putExtra("image",prayerDay.getDayImageRef())
+                .putExtra("descr",prayerDay.getDayDescription())
+                .putExtra("date",prayerDay.getFormattedDate());
         startActivity(intent);
+    }
+
+    public int getDayStartingPosition(PrayerDay[] prayerDays) {
+        Calendar rightNow = Calendar.getInstance();
+        int startDay = 99;
+
+        FindTomorrow:
+        for(int i = 0; i < prayerDays.length; i++) {
+
+            Calendar findTomorrow = prayerDays[i].getCalendarDate();
+
+            if(findTomorrow.after(rightNow)){
+                startDay = i;
+                break FindTomorrow;
+            }
+        }
+
+        if(startDay == 99){
+            startDay = 1;
+        }
+
+        return startDay-1;
     }
 }

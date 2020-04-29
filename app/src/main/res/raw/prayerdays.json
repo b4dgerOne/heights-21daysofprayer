@@ -1,44 +1,50 @@
 [
-    {
-      "title" : "Day 1",
-      "focus" : "Leaders",
-      "verse" : "Psalms 24:8",
-      "description" : "This is a long view of a description of the verse and focus for the day. This is for our leaders.\nThis should be on a new line, new paragraph maybe?",
-      "prayer" : "Lord, be with our leaders today."
-    },
-    {
-        "title" : "Day 2",
-        "focus" : "City Officials",
-        "verse" : "Proverbs 12:18",
-        "description" : "This is a long view of a description of the verse and focus for the day. This is for our leaders.\nThis should be on a new line, new paragraph maybe?",
-        "prayer" : "Lord, be with our city officials today."
-      },
   {
-        "title" : "Day 3",
-        "focus" : "Small Groups",
-        "verse" : "Acts 4:28",
-        "description" : "This is a long view of a description of the verse and focus for the day. This is for our leaders.\nThis should be on a new line, new paragraph maybe?",
-        "prayer" : "Lord, be with our small groups today."
-      },
+    "title" : "Day 1",
+    "focus" : "Leaders",
+    "verse" : "Psalms 24:8",
+    "description" : "This is a long view of a description of the verse and focus for the day. This is for our leaders.\nThis should be on a new line, new paragraph maybe?",
+    "prayer" : "Lord, be with our leaders today.",
+    "date" : "04/29/2020"
+  },
   {
-        "title" : "Day 4",
-        "focus" : "Faith",
-        "verse" : "John 8:12",
-        "description" : "This is a long view of a description of the verse and focus for the day. This is for our leaders.\nThis should be on a new line, new paragraph maybe?",
-        "prayer" : "Lord, give us faith today."
-      },
+    "title" : "Day 2",
+    "focus" : "City Officials",
+    "verse" : "Proverbs 12:18",
+    "description" : "This is a long view of a description of the verse and focus for the day. This is for our leaders.\nThis should be on a new line, new paragraph maybe?",
+    "prayer" : "Lord, be with our city officials today.",
+    "date" : "04/30/2020"
+  },
   {
-        "title" : "Day 5",
-        "focus" : "Patience",
-        "verse" : "Genesis 2:1",
-        "description" : "This is a long view of a description of the verse and focus for the day. This is for our leaders.\nThis should be on a new line, new paragraph maybe?",
-        "prayer" : "Lord, give us patience today."
-      },
+    "title" : "Day 3",
+    "focus" : "Small Groups",
+    "verse" : "Acts 4:28",
+    "description" : "This is a long view of a description of the verse and focus for the day. This is for our leaders.\nThis should be on a new line, new paragraph maybe?",
+    "prayer" : "Lord, be with our small groups today.",
+    "date" : "05/01/2020"
+  },
   {
-        "title" : "Day 6",
-        "focus" : "Everyone",
-        "verse" : "Revelation 21:22",
-        "description" : "This is a long view of a description of the verse and focus for the day. This is for our leaders.\nThis should be on a new line, new paragraph maybe?",
-        "prayer" : "Lord, be with everyone today."
-      }
+    "title" : "Day 4",
+    "focus" : "Faith",
+    "verse" : "John 8:12",
+    "description" : "This is a long view of a description of the verse and focus for the day. This is for our leaders.\nThis should be on a new line, new paragraph maybe?",
+    "prayer" : "Lord, give us faith today.",
+    "date" : "05/02/2020"
+  },
+  {
+    "title" : "Day 5",
+    "focus" : "Patience",
+    "verse" : "Genesis 2:1",
+    "description" : "This is a long view of a description of the verse and focus for the day. This is for our leaders.\nThis should be on a new line, new paragraph maybe?",
+    "prayer" : "Lord, give us patience today.",
+    "date" : "05/03/2020"
+  },
+  {
+    "title" : "Day 6",
+    "focus" : "Everyone",
+    "verse" : "Revelation 21:22",
+    "description" : "This is a long view of a description of the verse and focus for the day. This is for our leaders.\nThis should be on a new line, new paragraph maybe?",
+    "prayer" : "Lord, be with everyone today.",
+    "date" : "05/04/2020"
+  }
 ]

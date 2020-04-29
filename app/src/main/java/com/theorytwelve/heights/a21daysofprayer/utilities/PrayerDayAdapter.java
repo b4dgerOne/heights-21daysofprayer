@@ -64,7 +64,7 @@ public class PrayerDayAdapter extends RecyclerView.Adapter<PrayerDayAdapter.Card
             super(itemView);
             itemView.setOnClickListener(this);
 
-            cardTitleText = (TextView) itemView.findViewById(R.id.tv_day_title_card);
+            cardTitleText = (TextView) itemView.findViewById(R.id.tv_day_title_card); // title will show date
             cardFocusText = (TextView) itemView.findViewById(R.id.tv_day_focus_card);
             cardBannerImage = (ImageView) itemView.findViewById(R.id.iv_day_banner_card);
         }
@@ -72,7 +72,7 @@ public class PrayerDayAdapter extends RecyclerView.Adapter<PrayerDayAdapter.Card
         void bind(PrayerDay prayerDay) {
             int imageID = mContext.getResources().getIdentifier(prayerDay.getDayImageRef(),"drawable",mContext.getPackageName());
             cardBannerImage.setImageResource(imageID);
-            cardTitleText.setText(prayerDay.getDayTitle());
+            cardTitleText.setText(prayerDay.getFormattedDate()); // setting new "date" field to show as the day title
             cardFocusText.setText(prayerDay.getDayFocus());
         }
 

@@ -16,6 +16,7 @@ public class PrayerDayDetailActivity extends AppCompatActivity {
     private String pdDescr;
     private String pdImage;
     private String pdPrayer;
+    private String pdDate;
 
     private ImageView mImageDisplay;
     private TextView mTitleDisplay;
@@ -49,10 +50,11 @@ public class PrayerDayDetailActivity extends AppCompatActivity {
         if (intent.hasExtra("prayer")) { pdPrayer = intent.getStringExtra("prayer"); }
         if (intent.hasExtra("image")) { pdImage = intent.getStringExtra("image"); }
         if (intent.hasExtra("descr")) { pdDescr = intent.getStringExtra("descr"); }
+        if (intent.hasExtra("date")) { pdDate = intent.getStringExtra("date"); }
     }
 
     private void setDisplayData() {
-        if (pdTitle != null) { mTitleDisplay.setText(pdTitle);}
+        if (pdTitle != null) { mTitleDisplay.setText(pdDate);} // putting date as title for the day.
         if (pdVerse != null) { mVerseDisplay.setText(getString(R.string.detail_verse_lead) + " " + pdVerse);}
         if (pdFocus != null) { mFocusDisplay.setText(getString(R.string.detail_focus_lead) + " " + pdFocus);}
         if (pdPrayer != null) { mPrayerDisplay.setText(getString(R.string.detail_prayer_lead) + " " + pdPrayer);}
